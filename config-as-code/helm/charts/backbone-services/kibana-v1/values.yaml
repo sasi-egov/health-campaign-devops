@@ -1,0 +1,35 @@
+# Common Labels
+labels:
+  app: "kibana-v1"
+namespace: es-cluster-6  
+
+# Ingress Configs
+ingress:
+  enabled: true
+  context: "kibana-v1"
+
+# Init Containers Configs
+initContainers: {}
+
+# Container Configs
+image:
+  repository: "docker.elastic.co/kibana/kibana"
+  tag: 6.6.2
+replicas: "1"
+httpPort: 5601
+elasticsearchHosts: "http://elasticsearch-data-v1.es-cluster-6:9200"
+serverBasePath: "/kibana-v1"
+healthCheckPath: "kibana-v1/app/kibana"
+healthChecks:
+  enabled: true
+  livenessProbePath: "/kibana-v1/"
+  readinessProbePath: "/kibana-v1/"            
+
+# Additional Container Envs
+env: |
+  - name: ELASTICSEARCH_URL
+    value: {{ .Values.elasticsearchHosts | quote }}
+  - name: SERVER_BASEPATH
+    value: {{ .Values.serverBasePath | quote }}
+  - name: SERVER_REWRITEBASEPATH
+    value: "true"   
