@@ -19,6 +19,7 @@ cluster-configs:
                 domain: hcm-demo.digit.org ## Add your Domain Name
                 egov-services-fqdn-name: https://hcm-demo.digit.org/ ## Add your Domain Name
                 kibana-host: http://release-name-kibana.es-cluster:5601/
+                kibana-base-path: kibana
                 egov-state-level-tenant-id: "mz"
                 s3-assets-bucket: "(pg-health-egov-assets|egov-health-playground-assets)"
                 es-host: "elasticsearch-data.es-cluster-6"
