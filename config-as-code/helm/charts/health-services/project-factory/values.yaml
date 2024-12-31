@@ -246,7 +246,7 @@ env: |
   - name: APP_MAX_DEBUG_CHAR
     value: "{{ .Values.maxDebugChar | default "500" }}"
   - name: READ_ME_TAB
-    value: "Read Me"  
+    value: "HCM_README_SHEETNAME"  
   - name: USER_PASSWORD_AUTO_GENERATE
     value: "true"  
   - name: USER_DEFAULT_PASSWORD
@@ -261,3 +261,16 @@ env: |
     value: "6379"
   - name: REDIS_HOST
     value: "redis.backbone"
+  - name: AUTO_RETRY_IF_HTTP_ERROR
+    value: "socket hang up"
+  - name: ENABLE_DYNAMIC_TEMPLATE_FOR
+    value: "MR-DN"
+  - name: IS_CALL_GENERATE_WHEN_DELIVERY_CONDITIONS_DIFFER
+    value: "true"
+  - name: EXCLUDE_HIERARCHY_TYPE_FROM_BOUNDARY_CODES  
+    value: "true"
+  - name: EXCLUDE_BOUNDARY_NAME_AT_LAST_FROM_BOUNDARY_CODES
+    value: "true"  
+
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
