@@ -499,8 +499,8 @@ project-factory:
   splitBoundariesOn: 'CAMPAIGN_DISTRICT'
   replicas: 2
   namespace: 'egov'
-  mdmsV2SearchEndpoint: 'egov-mdms-service/v2/v2/_search'
-  mdmsV1SearchEndpoint: 'egov-mdms-service/v1/_search'
+  mdmsV2SearchEndpoint: 'mdms-v2/v2/_search'
+  mdmsV1SearchEndpoint: 'mdms-v2/v2/_search'
 
 plan-service:
   egov-mdms-service-host-key: 'mdms-service-v2'
