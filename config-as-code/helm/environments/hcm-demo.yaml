@@ -375,11 +375,6 @@ nginx-ingress:
 cert-manager:
   email: "devops@egovernments.org"     ### Add email-id which used by cert-manager for certificates validation.
 
-project-factory:
-  logLevel: 'info'
-  defaultLocale: 'en_MZ'
-  splitBoundariesOn: 'ADMIN_DISTRITO'
-
 zuul:
   replicas: 1
   custom-filter-property: "false"
