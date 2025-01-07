@@ -507,7 +507,7 @@ product:
 
 
 project-factory:
-  logLevel: 'info'
+  logLevel: 'debug'
   defaultLocale: 'en_MZ'
   splitBoundariesOn: 'CAMPAIGN_DISTRICT'
   replicas: 2
