@@ -24,7 +24,7 @@ initContainers:
 # Container Configs
 image:
   repository: "project-factory"
-replicas: "2"
+replicas: "1"
 
 # Additional Container Envs
 env: |
