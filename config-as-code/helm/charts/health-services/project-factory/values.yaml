@@ -266,7 +266,7 @@ env: |
   - name: APP_LOG_LEVEL
     value: {{ .Values.logLevel | default "info" }} 
   - name: APP_MAX_DEBUG_CHAR
-    value: "{{ .Values.maxDebugChar | default "500" }}"
+    value: "{{ .Values.maxDebugChar | default "2500" }}"
   - name: DEBUG
     value: "{{ .Values.DEBUG | default "false" }}"
   - name: READ_ME_TAB
