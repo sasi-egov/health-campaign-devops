@@ -514,7 +514,7 @@ project-factory:
   namespace: 'egov'
   egov-mdms-service-host-key: 'mdms-service-v2'
   mdmsV2SearchEndpoint: 'mdms-v2/v2/_search'
-  mdmsV1SearchEndpoint: 'mdms-v2/v2/_search'
+  mdmsV1SearchEndpoint: 'mdms-v2/v1/_search'
 
 plan-service:
   egov-mdms-service-host-key: 'mdms-service-v2'
