@@ -99,6 +99,20 @@ modules:
       - "backbone"
       - "authn-authz"
       - "core"
+      - "m-health"
+      - "m_hcm_microplanning"
     services:
       - egovio/project-factory:v0.3.0-c9f5d73e13-233
       - egovio/workbench-ui:v0.3.0-b3c48dc663-701
+  - name: m_hcm_microplanning
+    dependencies:
+      - "backbone"
+      - "authn-authz"
+      - "core"
+      - "m_hcmconsole"
+      - "m_health"
+    services:
+      - plan-service-db:v1.0.0-717aeac28f-231
+      - resource-generator:v1.0.0-3f860f8a31-29
+      - census-service:v1.0.0-fd9a00f0e7-77
+      - microplan-ui:v0.3.0-3b51c0acc3-375
