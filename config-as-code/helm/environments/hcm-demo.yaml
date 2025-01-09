@@ -103,8 +103,8 @@ cluster-configs:
               stock: "http://stock:8080/"
               facility: "http://facility:8080/"
               service-request: "http://service-request:8080/"
-              plan-service: 'http://plan-service.health:8080/'
-              census-service: 'http://census-service.health:8080/'
+              plan-service: 'http://plan-service.egov:8080/'
+              census-service: 'http://census-service.egov:8080/'
               project-factory: 'http://project-factory.egov:8080/'
               mdms-service-v2: 'http://mdms-v2.egov:8080/'
               
