@@ -14,11 +14,13 @@ appType: "java-spring"
 tracing-enabled: true
 username: "egov-testing@egovernments.org"
 heap: "-Xmx192m -Xms192m"
+memory_limits: "256Mi"
+cpu_limits: "50m"
 
 # Additional Container Envs
 env: |
   - name: KAFKA_TOPICS_NOTIFICATION_MAIL_NAME
-    value: org.egov.core.notification.email
+    value: egov.core.notification.email
   - name: KAFKA_TOPICS_NOTIFICATION_MAIL_ID
     value: egov.core.notification.email
   - name: KAFKA_TOPICS_NOTIFICATION_MAIL_GROUP
@@ -27,7 +29,7 @@ env: |
     valueFrom:
       secretKeyRef:
         name: egov-notification-mail
-        key: mailsenderusername                  
+        key: mailsenderusername                   
   - name: MAIL_SENDER_PASSWORD
     valueFrom:
       secretKeyRef:
