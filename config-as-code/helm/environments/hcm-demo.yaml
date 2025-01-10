@@ -487,6 +487,11 @@ individual:
   heap: '-Xmx512m -Xms256m'
   memory_limits: 512Mi
 
+transformer:
+  egov-boundary-hierarchy-name: "MICROPLAN"
+  egov-mdms-service-host-key: 'mdms-service-v2'
+  egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
+
 product:
   heap: "-Xmx512m -Xms256m"
   replicas: 1
