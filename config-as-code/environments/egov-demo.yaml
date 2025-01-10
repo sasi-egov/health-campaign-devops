@@ -40,6 +40,7 @@ cluster-configs:
                 timezone: "UTC"
                 tracer-errors-provideexceptionindetails: "true"
                 egov-internal-microservice-user-uuid: fa0f820c-49df-46bb-8e62-8a0ec5d9af5e
+                
 
         egov-service-host:
             namespace: [ egov, monitoring ]
@@ -105,7 +106,8 @@ cluster-configs:
               plan-service: "http://plan-service.egov:8080/"
               census-service: "http://census-service.egov:8080/"
               project-factory: "http://project-factory.egov:8080/"
-
+              mdms-service-v2: 'http://mdms-v2.egov:8080/'
+              
 employee:
   dashboard-url: "https://dashboard-pbuat.egovernments.org/s/w---s/app/kibana#/dashboard/4e687470-f3c7-11e8-8d09-b151e2b1cf8e?embed=true&_g=(refreshInterval%3A(pause%3A!f%2Cvalue%3A300000)%2Ctime%3A(from%3Anow-15m%2Cmode%3Aquick%2Cto%3Anow))"
   custom-js-injection: |
