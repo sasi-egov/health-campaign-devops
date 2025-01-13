@@ -151,4 +151,10 @@ env: |
   - name: TRACER_OPENTRACING_ENABLED
     value: "true" 
   {{- end }}
+  - name: HRMS_EMAIL_NOTIFICATION_IMPLEMENTATION_PARTNER
+    value: {{ .Values.microplanImplementationPartner | default "NMCP Mozambique" }}
+  - name: HRMS_EMAIL_NOTIFICATION_WEBSITE_LINK
+    value: {{ .Values.microplanWebsiteLink | default "https://unified-qa.digit.org/microplan-ui/employee" }}
+  - name: NOTIFICATION_EMAIL_ENABLED
+    value: "true"
   
