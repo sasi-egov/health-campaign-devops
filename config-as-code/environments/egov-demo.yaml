@@ -18,7 +18,6 @@ cluster-configs:
                 db-url: "jdbc:postgresql://<db_host_name>/<db_name>" ## example: jdbc:postgresql://egov-demo.postgres.database.azure.com:5432/egov_demo
                 domain: <domain_name> ## Add your Domain Name    
                 egov-services-fqdn-name: https://<domain_name>/ ## Add your Domain Name
-                
                 egov-state-level-tenant-id: "mz"
                 s3-assets-bucket: "(pg-health-egov-assets|egov-health-playground-assets)"
                 es-host: "elasticsearch-data.es-cluster"
@@ -40,7 +39,6 @@ cluster-configs:
                 timezone: "UTC"
                 tracer-errors-provideexceptionindetails: "true"
                 egov-internal-microservice-user-uuid: fa0f820c-49df-46bb-8e62-8a0ec5d9af5e
-                
 
         egov-service-host:
             namespace: [ egov, monitoring ]
