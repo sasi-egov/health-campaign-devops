@@ -51,14 +51,14 @@ jobs:
       - name: Archive config-as-code folder
         run: tar -czf config-as-code.tar.gz config-as-code/
       - name: Upload infra-as-code folder as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4.4.0
         with:
-          name: infra-as-code-artifact
+          name: infra-as-code-artifact-input
           path: infra-as-code.tar.gz
       - name: Upload config-as-code folder as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4.4.0
         with:
-          name: config-as-code-artifact
+          name: config-as-code-artifact-input
           path: config-as-code.tar.gz
       # - name: Install AWS IAM Authenticator
       #   run: |
@@ -93,7 +93,7 @@ jobs:
 
   Terraform_Infra_Creation:
     if: ${{ github.event_name == 'push' }}
-    needs: input_validation
+    needs: Input_validation
     runs-on: ubuntu-latest
     env:
       TF_IN_AUTOMATION: "true"
@@ -105,14 +105,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Download infra-as-code folder from artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.8
         with:
-          name: infra-as-code-artifact
+          name: infra-as-code-artifact-input
           path: .
       - name: Download config-as-code folder from artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.8
         with:
-          name: config-as-code-artifact
+          name: config-as-code-artifact-input
           path: .
       - name: Extract infra-as-code folder
         run: tar -xzf infra-as-code.tar.gz
@@ -151,7 +151,7 @@ jobs:
         working-directory: infra-as-code/terraform/sample-aws
       - name: Terraform Plan - Infra creation
         id: plan-Infra
-        run: terraform plan -no-color -input=false -var db_password=demo123456   
+        run: terraform plan -no-color -input=false -var db_password=demo123456
         working-directory: infra-as-code/terraform/sample-aws
       - name: Terraform Apply - Infra creation
         id: apply-Infra
@@ -186,14 +186,14 @@ jobs:
       - name: Archive config-as-code folder
         run: tar -czf config-as-code.tar.gz config-as-code/
       - name: Upload infra-as-code folder as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4.4.0
         with:
-          name: infra-as-code-artifact
+          name: infra-as-code-artifact-creation
           path: infra-as-code.tar.gz
       - name: Upload config-as-code folder as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4.4.0
         with:
-          name: config-as-code-artifact
+          name: config-as-code-artifact-creation
           path: config-as-code.tar.gz      
 
   DIGIT-deployment:
@@ -210,14 +210,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Download infra-as-code folder from artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.8
         with:
-          name: infra-as-code-artifact
+          name: infra-as-code-artifact-creation
           path: .
       - name: Download config-as-code folder from artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.8
         with:
-          name: config-as-code-artifact
+          name: config-as-code-artifact-creation
           path: .
       - name: Extract infra-as-code folder
         run: tar -xzf infra-as-code.tar.gz
