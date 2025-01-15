@@ -151,11 +151,11 @@ jobs:
         working-directory: infra-as-code/terraform/sample-aws
       - name: Terraform Plan - Infra creation
         id: plan-Infra
-        run: terraform plan -no-color -input=false -var db_password=demo123456 -lock=false
+        run: terraform plan -no-color -input=false -var db_password=demo123456
         working-directory: infra-as-code/terraform/sample-aws
       - name: Terraform Apply - Infra creation
         id: apply-Infra
-        run: terraform apply -no-color -input=false -auto-approve -var db_password=demo123456 -lock=false
+        run: terraform apply -no-color -input=false -auto-approve -var db_password=demo123456
         continue-on-error: true  
         working-directory: infra-as-code/terraform/sample-aws
       - name: Install AWS IAM Authenticator
