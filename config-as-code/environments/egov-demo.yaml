@@ -11,7 +11,7 @@ cluster-configs:
       cert-issuer: letsencrypt-prod
     configmaps:
         egov-config:
-            namespace: [ egov, monitoring ]
+            namespace: [ egov, es-cluster, monitoring ]
             data:
                 db-host: <db_host_name> ## Add db-host name eg: egov-demo.database.azure.com
                 db-name: <db_name> ## Add db-name
@@ -43,7 +43,7 @@ cluster-configs:
                 kibana-host: "http://kibana-v1.es-upgrade:5601/"
 
         egov-service-host:
-            namespace: [ egov, monitoring ]
+            namespace: [ egov, es-cluster, monitoring ]
             data:
               asset-services: "http://asset-services:8080/"
               boundary-service: 'http://boundary-service.egov:8080/'
