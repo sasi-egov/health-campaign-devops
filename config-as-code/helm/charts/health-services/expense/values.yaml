@@ -3,7 +3,7 @@ labels:
   app: "expense"
   group: "health"
 
-namespace: health
+namespace: egov
 
 # Ingress Configs
 ingress:
