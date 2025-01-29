@@ -1,5 +1,5 @@
 
-version: v1.6
+version: v1.7
 modules:
   - name: backbone
     services:
@@ -44,7 +44,7 @@ modules:
     dependencies:
       - "core"
     services:
-      - egovio/egov-hrms-db:master-flyway-imageupdate-60353d5c64-20
+      - egovio/egov-hrms-db:v1.3.0-1585e2fcb8-34
   - name: frontend
     dependencies:
       - "business"
@@ -84,14 +84,18 @@ modules:
     services:
       - egovio/facility-db:v1.1.2-00a7accbda-14
       - egovio/product-db:v1.1.0-00a7accbda-31
-      - egovio/individual-db:v1.1.6-a0e714254c-12
+      - egovio/individual-db:v1.1.6-1f79b92f65-26
       - egovio/transformer:HDDF-1277-149f70deb7-302
       - egovio/stock-db:v1.1.3-a0e714254c-31
-      - egovio/household-db:v1.1.4-a0e714254c-30
-      - egovio/project-db:v1.1.5-a0e714254c-13
+      - egovio/household-db:v1.1.5-1f79b92f65-40
+      - egovio/project-db:v1.1.6-1f79b92f65-32
       - egovio/referralmanagement-db:v1.0.3-a0e714254c-42
-      - egovio/health-attendance-db:v1.0.2-30824c427-11
-      - egovio/service-request-db:v1.0.1-9dbb1d73f7-39
+      - egovio/attendance-db:v1.1.0-55e92c713-90
+      - egovio/service-request-db:v1.0.1-9dbb1d73f7-40
+      - payments-ui:console-c692a067dd-57
+      - egovio/muster-roll-db:v1.1.0-8e8f04913-61
+      - egovio/expense-db:v1.1.0-55e92c713-118
+      - egovio/expense-calculator-db:v2.0.2-e87c8c4e6-156
   - name: m_hcmconsole
     dependencies:
       - "backbone"
