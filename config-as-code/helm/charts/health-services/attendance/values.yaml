@@ -20,7 +20,7 @@ initContainers:
 
 # Container Configs
 image:
-  repository: "health-attendance"
+  repository: "attendance"
 replicas: "1"
 healthChecks:
   enabled: true
