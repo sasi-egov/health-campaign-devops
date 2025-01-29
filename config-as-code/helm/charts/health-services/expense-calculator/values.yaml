@@ -1,6 +1,6 @@
 # Common Labels
 labels:
-  app: "health-expense-calculator"
+  app: "expense-calculator"
   group: "health"
 
 namespace: health
@@ -22,7 +22,7 @@ initContainers:
 
 # Container Configs
 image:
-  repository: "health-expense-calculator"
+  repository: "expense-calculator"
 replicas: "1"
 healthChecks:
   enabled: true

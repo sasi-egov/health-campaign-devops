@@ -1,6 +1,6 @@
 # Common Labels
 labels:
-  app: "health-expense"
+  app: "expense"
   group: "health"
 
 namespace: health
