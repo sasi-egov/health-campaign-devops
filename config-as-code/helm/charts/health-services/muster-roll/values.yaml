@@ -18,7 +18,7 @@ initContainers:
     enabled: true
     schemaTable: "muster_roll_schema"
     image:
-      repository: "health-muster-roll-db"
+      repository: "muster-roll-db"
 
 # Container Configs
 image:
@@ -75,7 +75,7 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: health-individual
+        key: individual
   - name: EGOV_LOCALIZATION_HOST
     valueFrom:
       configMapKeyRef:

@@ -18,11 +18,11 @@ initContainers:
     enabled: true
     schemaTable: "expense_schema"
     image:
-      repository: "health-expense-db"
+      repository: "expense-db"
 
 # Container Configs
 image:
-  repository: "health-expense"
+  repository: "expense"
 replicas: "1"
 healthChecks:
   enabled: true
@@ -91,7 +91,7 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: health-individual
+        key: individual
   - name: BUSINESS_WORKFLOW_STATUS_MAP
     value: {{ index .Values "business-workflow-status-map" | quote }}
   - name: EXPENSE_BILLING_BILL_CREATE
@@ -116,9 +116,9 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: health-project
+        key: project
   - name: PROJECT_SEARCH_PATH
-    value: "health-project/v1/_search"
+    value: "project/v1/_search"
   {{- if index .Values "spring-kafka-producer-properties-max-request-size" }}
   - name: SPRING_KAFKA_PRODUCER_PROPERTIES_MAX_REQUEST_SIZE
     value: {{ index .Values "spring-kafka-producer-properties-max-request-size" | quote }} 

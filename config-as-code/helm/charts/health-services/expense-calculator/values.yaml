@@ -18,7 +18,7 @@ initContainers:
     enabled: true
     schemaTable: "expense_calculator_schema"
     image:
-      repository: "health-expense-calculator-db"
+      repository: "expense-calculator-db"
 
 # Container Configs
 image:
@@ -79,7 +79,7 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: health-individual
+        key: individual
   - name: EGOV_MDMS_V2_HOST
     valueFrom:
       configMapKeyRef:
@@ -105,9 +105,9 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: health-project
+        key: project
   - name: PROJECT_SEARCH_PATH
-    value: "health-project/v1/_search"
+    value: "project/v1/_search"
   - name: EGOV_FILESTORE_HOST
     valueFrom:
       configMapKeyRef:

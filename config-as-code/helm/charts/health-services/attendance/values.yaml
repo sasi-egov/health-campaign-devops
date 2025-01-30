@@ -16,7 +16,7 @@ initContainers:
     enabled: true
     schemaTable: "attendance_schema"
     image:
-      repository: "health-attendance-db"
+      repository: "attendance-db"
 
 # Container Configs
 image:
