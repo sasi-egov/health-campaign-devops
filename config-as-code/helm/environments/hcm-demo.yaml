@@ -16,8 +16,8 @@ cluster-configs:
                 db-host: db-hcm-demo.cqqfmghbjssw.ap-south-1.rds.amazonaws.com:5432 ## Add db-host name eg: egov-demo.database.azure.com
                 db-name: healthdemo ## Add db-name
                 db-url: "jdbc:postgresql://db-hcm-demo.cqqfmghbjssw.ap-south-1.rds.amazonaws.com:5432/healthdemo" ## example: jdbc:postgresql://egov-demo.postgres.database.azure.com:5432/egov_demo
-                domain: hcm-demo.digit.org ## Add your Domain Name
-                egov-services-fqdn-name: https://hcm-demo.digit.org/ ## Add your Domain Name
+                domain: health-demo.digit.org ## Add your Domain Name
+                egov-services-fqdn-name: https://health-demo.digit.org/ ## Add your Domain Name
                 kibana-host: http://release-name-kibana.es-cluster:5601/
                 kibana-base-path: kibana
                 egov-state-level-tenant-id: "mz"
