@@ -33,10 +33,10 @@ func main() {
 	replaceInFile("../sample-aws/main.tf", data, false)
 	fmt.Println("main.tf file updated successfully!")
 
-	replaceInFile("../../../config-as-code/environments/health-demo-upgrade.yaml", data, true)
+	replaceInFile("../../../config-as-code/helm/environments/health-demo-upgrade.yaml", data, true)
 	fmt.Println("env yaml file updated successfully!")
 
-	replaceInFile("../../../config-as-code/environments/health-demo-upgrade-secrets.yaml", data, true)
+	replaceInFile("../../../config-as-code/helm/environments/health-demo-upgrade-secrets.yaml", data, true)
 	fmt.Println("env secrets yaml file updated successfully!")
 }
 
