@@ -92,10 +92,10 @@ modules:
       - egovio/referralmanagement-db:v1.0.3-a0e714254c-42
       - egovio/attendance-db:v1.1.0-55e92c713-90
       - egovio/service-request-db:v1.0.1-9dbb1d73f7-40
-      - payments-ui:console-c692a067dd-57
       - egovio/muster-roll-db:v1.1.0-8e8f04913-61
       - egovio/expense-db:v1.1.0-55e92c713-118
       - egovio/expense-calculator-db:v2.0.2-e87c8c4e6-156
+      - payments-ui:console-c692a067dd-57
   - name: m_hcmconsole
     dependencies:
       - "backbone"
