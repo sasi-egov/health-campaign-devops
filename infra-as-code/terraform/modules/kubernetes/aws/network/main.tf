@@ -91,8 +91,8 @@ resource "aws_route_table_association" "public" {
 }
 
 resource "aws_eip" "eip" {
-  vpc      = true
-  depends_on = ["aws_internet_gateway.internet_gateway"]
+  domain     = "vpc"
+  depends_on = [aws_internet_gateway.internet_gateway]
 
     tags = "${
     tomap({
