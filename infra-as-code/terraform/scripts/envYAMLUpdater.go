@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"path/filepath"
 	"strings"
 )
 
@@ -37,8 +36,8 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error reading YAML file: %v\n", err)
 		os.Exit(1)
 	}
-	output = strings.ReplaceAll(output, "<db_host_name>", tfOutput.DBHost.Value)
-	output = strings.ReplaceAll(output, "<db_name>", tfOutput.DBName.Value)
+	output = strings.ReplaceAll(yamlFile, "<db_host_name>", tfOutput.DBHost.Value)
+	output = strings.ReplaceAll(yamlFile, "<db_name>", tfOutput.DBName.Value)
 
 	// Write the updated YAML to stdout
 	fmt.Println(output)
