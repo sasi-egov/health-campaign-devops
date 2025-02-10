@@ -31,7 +31,7 @@ variable "kubernetes_version" {
 
 variable "instance_types" {
   description = "Arry of instance types for SPOT instances"
-  default = ["r5ad.large"]
+  default = ["r5ad.xlarge", "m5ad.xlarge"]
   
 }
 

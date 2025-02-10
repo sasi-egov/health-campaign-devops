@@ -1,6 +1,6 @@
 # Common Labels
 labels:
-  app: "expense-calculator"
+  app: "health-expense-calculator"
   group: "health"
 
 namespace: egov
@@ -18,11 +18,11 @@ initContainers:
     enabled: true
     schemaTable: "expense_calculator_schema"
     image:
-      repository: "expense-calculator-db"
+      repository: "health-expense-calculator-db"
 
 # Container Configs
 image:
-  repository: "expense-calculator"
+  repository: "health-expense-calculator"
 replicas: "1"
 healthChecks:
   enabled: true
@@ -192,3 +192,7 @@ env: |
   - name: SPRING_KAFKA_PRODUCER_PROPERTIES_MAX_REQUEST_SIZE
     value: {{ index .Values "spring-kafka-producer-properties-max-request-size" | quote }} 
   {{- end }}
+  - name: EGOV_MUSTERROLL_SEARCH_ENDPOINT 
+    value:{{ index .Values "egov-musterroll-search-endpoint" | quote }} 
+  - name: IS_HEALTH_CONTEXT_ENABLED
+    value: "true"

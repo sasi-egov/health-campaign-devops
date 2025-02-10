@@ -83,7 +83,7 @@ cluster-configs:
               egov-indexer: "http://egov-indexer:8080/"
               egov-hrms: "http://egov-hrms:8080/"
               es-client: "http://elasticsearch-data-v1.es-cluster:9200"
-              health-attendance: "http://health-attendance:8080/"
+              health-attendance: "http://attendance:8080/"
               location: "http://location:8080/"
               performance-assessment: "http://performance-assessment:8080/"
               pdf-service: "http://pdf-service.egov:8080/"
@@ -107,9 +107,9 @@ cluster-configs:
               census-service: "http://census-service.egov:8080/"
               project-factory: "http://project-factory.egov:8080/"
               mdms-service-v2: 'http://mdms-v2.egov:8080/'
-              health-expense: 'http://health-expense.egov:8080/'
+              health-expense: 'http://expense.egov:8080/'
               health-expense-calculator: 'http://health-expense-calculator.egov:8080/'
-              health-muster-roll: 'http://health-muster-roll.egov:8080/'
+              health-muster-roll: 'http://muster-roll.egov:8080/'
 
 employee:
   dashboard-url: "https://dashboard-pbuat.egovernments.org/s/w---s/app/kibana#/dashboard/4e687470-f3c7-11e8-8d09-b151e2b1cf8e?embed=true&_g=(refreshInterval%3A(pause%3A!f%2Cvalue%3A300000)%2Ctime%3A(from%3Anow-15m%2Cmode%3Aquick%2Cto%3Anow))"
@@ -536,7 +536,7 @@ attendance:
   egov-mdms-service-host-key: 'mdms-service-v2'
   egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
 
-expense-calculator:
+health-expense-calculator:
   tracing-enabled: true
   java-enable-debug: true
   egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
@@ -545,6 +545,7 @@ expense-calculator:
   register-batch-size: 15
   bill-generation-async-enabled: "true"
   bill-generation-async-topic: "bill-generation-async-topic"
+  egov-musterroll-search-endpoint: "/health-muster-roll/v1/_search"
 
 expense:
   tracing-enabled: true
@@ -566,7 +567,7 @@ muster-roll:
   attendance-register-search-endpoint: "health-attendance/v1/_search"
   attendance-register-update-endpoint: "health-attendance/v1/_update"
   attendance-register-search-limit: 100
-  individual-search-endpoint: "health-individual/v1/_search"
+  individual-search-endpoint: "individual/v1/_search"
   expense-calculator-endpoint: "health-expense-calculator/v1/_estimate"
   muster-restricted-search-roles: "PLACEHOLDER_ROLE"
   notification-sms-enabled: "false"
