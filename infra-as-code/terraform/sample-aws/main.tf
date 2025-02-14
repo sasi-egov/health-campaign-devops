@@ -77,7 +77,7 @@ module "eks" {
 module "eks_managed_node_group" {
   depends_on = [module.eks]
   source = "terraform-aws-modules/eks/aws//modules/eks-managed-node-group"
-  name            = "${var.cluster_name}-spot"
+  name            = "${var.cluster_name}"
   cluster_name    = var.cluster_name
   cluster_version = var.kubernetes_version
   subnet_ids = slice(module.network.private_subnets, 0, length(var.availability_zones))
@@ -141,19 +141,19 @@ resource "aws_eks_addon" "kube_proxy" {
   depends_on = [module.eks_managed_node_group]
   cluster_name      = var.cluster_name
   addon_name        = "kube-proxy"
-  resolve_conflicts = "OVERWRITE"
+  resolve_conflicts_on_update = "PRESERVE"
 }
 resource "aws_eks_addon" "core_dns" {
   depends_on = [module.eks_managed_node_group]
   cluster_name      = var.cluster_name
   addon_name        = "coredns"
-  resolve_conflicts = "OVERWRITE"
+  resolve_conflicts_on_update = "PRESERVE"
 }
 resource "aws_eks_addon" "aws_ebs_csi_driver" {
   depends_on = [module.eks_managed_node_group]
   cluster_name      = var.cluster_name
   addon_name        = "aws-ebs-csi-driver"
-  resolve_conflicts = "OVERWRITE"
+  resolve_conflicts_on_update = "PRESERVE"
 }
 
 provider "kubernetes" {

@@ -11,14 +11,13 @@ cluster-configs:
       cert-issuer: letsencrypt-prod
     configmaps:
         egov-config:
-            namespace: [ egov, monitoring ]
+            namespace: [ egov, es-cluster, monitoring ]
             data:
                 db-host: <db_host_name> ## Add db-host name eg: egov-demo.database.azure.com
                 db-name: <db_name> ## Add db-name
                 db-url: "jdbc:postgresql://<db_host_name>/<db_name>" ## example: jdbc:postgresql://egov-demo.postgres.database.azure.com:5432/egov_demo
                 domain: <domain_name> ## Add your Domain Name    
                 egov-services-fqdn-name: https://<domain_name>/ ## Add your Domain Name
-                
                 egov-state-level-tenant-id: "mz"
                 s3-assets-bucket: "(pg-health-egov-assets|egov-health-playground-assets)"
                 es-host: "elasticsearch-data.es-cluster"
@@ -40,9 +39,11 @@ cluster-configs:
                 timezone: "UTC"
                 tracer-errors-provideexceptionindetails: "true"
                 egov-internal-microservice-user-uuid: fa0f820c-49df-46bb-8e62-8a0ec5d9af5e
+                kibana-base-path: kibana-upgrade 
+                kibana-host: "http://kibana-v1.es-upgrade:5601/"
 
         egov-service-host:
-            namespace: [ egov, monitoring ]
+            namespace: [ egov, es-cluster, monitoring ]
             data:
               asset-services: "http://asset-services:8080/"
               boundary-service: 'http://boundary-service.egov:8080/'
@@ -82,7 +83,7 @@ cluster-configs:
               egov-indexer: "http://egov-indexer:8080/"
               egov-hrms: "http://egov-hrms:8080/"
               es-client: "http://elasticsearch-data-v1.es-cluster:9200"
-              health-attendance: "http://health-attendance:8080/"
+              health-attendance: "http://attendance:8080/"
               location: "http://location:8080/"
               performance-assessment: "http://performance-assessment:8080/"
               pdf-service: "http://pdf-service.egov:8080/"
@@ -102,6 +103,14 @@ cluster-configs:
               stock: "http://stock:8080/"
               facility: "http://facility:8080/"
               service-request: "http://service-request:8080/"
+              plan-service: "http://plan-service.egov:8080/"
+              census-service: "http://census-service.egov:8080/"
+              project-factory: "http://project-factory.egov:8080/"
+              mdms-service-v2: 'http://mdms-v2.egov:8080/'
+              health-expense: 'http://expense.egov:8080/'
+              health-expense-calculator: 'http://health-expense-calculator.egov:8080/'
+              health-muster-roll: 'http://muster-roll.egov:8080/'
+
 employee:
   dashboard-url: "https://dashboard-pbuat.egovernments.org/s/w---s/app/kibana#/dashboard/4e687470-f3c7-11e8-8d09-b151e2b1cf8e?embed=true&_g=(refreshInterval%3A(pause%3A!f%2Cvalue%3A300000)%2Ctime%3A(from%3Anow-15m%2Cmode%3Aquick%2Cto%3Anow))"
   custom-js-injection: |
@@ -125,12 +134,28 @@ workbench-ui:
       sub_filter  '<head>' '<head>
       <script src=https://egov-dev-assets.s3.ap-south-1.amazonaws.com/hcm/workbenchGlobalConfigs.js type=text/javascript></script>';" 
 
+microplan-ui:
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://egov-dev-assets.s3.ap-south-1.amazonaws.com/analytics/analytics.js type=text/javascript></script>      
+      <script src=https://egov-dev-assets.s3.ap-south-1.amazonaws.com/hcm/globalConfigsMicroplanDemo.js type=text/javascript></script>
+      ';" 
+
 digit-ui:
   custom-js-injection: |
     sub_filter.conf: "
       sub_filter  '<head>' '<head>
       <script src=https://egov-health-demo-assets.s3.ap-south-1.amazonaws.com/globalConfigs.js type=text/javascript></script>
       ';"
+
+payments-ui:
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://egov-dev-assets.s3.ap-south-1.amazonaws.com/analytics/analytics.js type=text/javascript></script>     
+      <script src=https://egov-dev-assets.s3.ap-south-1.amazonaws.com/globalConfigsPaymentDev.js type=text/javascript></script>
+      ';"  
 egov-filestore:
   volume: /opt/eGov/filestore
   is-bucket-fixed: "true"
@@ -259,14 +284,14 @@ egov-indexer:
     gitSync:
       repo: "git@github.com:egovernments/health-campaign-config"        ##### Change repo url with Your fork Repo url
       branch: "DEMO"                                      ##### Change repo branch with Your fork Repo branch
-  egov-indexer-yaml-repo-path: "file:///work-dir/health-campaign-config/egov-indexer/error-queue.yml,file:///work-dir/health-campaign-config/egov-indexer/product-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/project-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/individual-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/household-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/project-task-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/stock-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/facility-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/project-staff-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/egov-error-queue-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/service-request-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/attendance-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/household-member-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/household-transformer-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/transformer-pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/referral-management-indexer.yml"
+  egov-indexer-yaml-repo-path: "file:///work-dir/health-campaign-config/egov-indexer/error-queue.yml,file:///work-dir/health-campaign-config/egov-indexer/product-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/project-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/individual-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/household-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/project-task-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/stock-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/facility-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/project-staff-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/egov-error-queue-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/service-request-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/transformer-pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/referral-management-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/census-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/plan-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/attendance-service-indexer.yml"
 
 egov-persister:
   replicas: 1
   heap: '-Xmx256m -Xms256m'
   images:
     - egovio/egov-persister
-  persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/project-factory-persister.yml,file:///work-dir/health-campaign-config/egov-persister/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/irs-persister.yml,file:///work-dir/health-campaign-config/egov-persister/plan-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/boundary-persister.yml"
+  persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/project-factory-persister.yml,file:///work-dir/health-campaign-config/egov-persister/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/irs-persister.yml,file:///work-dir/health-campaign-config/egov-persister/census-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/plan-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/boundary-persister.yml"
 
   initContainers:
     gitSync:
@@ -316,8 +341,8 @@ pdf-service:
     gitSync:
       repo: "git@github.com:egovernments/health-campaign-config"     ##### Change repo url with Your fork Repo url
       branch: "DEMO"                                   ##### Change repo branch with Your fork Repo branch
-  data-config-urls: "file:///work-dir/health-campaign-config/pdf-service/data-config/tradelicense-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/property-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/property-bill.json,file:///work-dir/health-campaign-config/pdf-service/data-config/tradelicense-bill.json,file:///work-dir/health-campaign-config/pdf-service/data-config/firenoc-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/pt-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/tl-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/consolidatedbill.json,file:///work-dir/health-campaign-config/pdf-service/data-config/consolidatedreceipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/tlapplication.json,file:///work-dir/health-campaign-config/pdf-service/data-config/passvehicle-certificate.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-consolidatedacknowlegment.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-consolidatedsewerageconnection.json,file:///work-dir/health-campaign-config/pdf-service/data-config/buildingpermit.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ptmutationcertificate.json,file:///work-dir/health-campaign-config/pdf-service/data-config/tlrenewalcertificate.json,file:///work-dir/health-campaign-config/pdf-service/data-config/bpa-revocation.json,file:///work-dir/health-campaign-config/pdf-service/data-config/buildingpermit-low.json,file:///work-dir/health-campaign-config/pdf-service/data-config/misc-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-applicationwater.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-sanctionletter.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-estimationnotice.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-applicationsewerage.json,file:///work-dir/health-campaign-config/pdf-service/data-config/tlcertificate.json"
-  format-config-urls: "file:///work-dir/health-campaign-config/pdf-service/format-config/tradelicense-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/property-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/property-bill.json,file:///work-dir/health-campaign-config/pdf-service/format-config/tradelicense-bill.json,file:///work-dir/health-campaign-config/pdf-service/format-config/firenoc-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/pt-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/tl-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/consolidatedbill.json,file:///work-dir/health-campaign-config/pdf-service/format-config/consolidatedreceipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/tlapplication.json,file:///work-dir/health-campaign-config/pdf-service/format-config/passvehicle-certificate.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-consolidatedacknowlegment.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-consolidatedsewerageconnection.json,file:///work-dir/health-campaign-config/pdf-service/format-config/buildingpermit.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ptmutationcertificate.json,file:///work-dir/health-campaign-config/pdf-service/format-config/tlrenewalcertificate.json,file:///work-dir/health-campaign-config/pdf-service/format-config/bpa-revocation.json,file:///work-dir/health-campaign-config/pdf-service/format-config/buildingpermit-low.json,file:///work-dir/health-campaign-config/pdf-service/format-config/misc-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-applicationwater.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-sanctionletter.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-estimationnotice.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-applicationsewerage.json,file:///work-dir/health-campaign-config/pdf-service/format-config/tlcertificate.json"
+  data-config-urls: "file:///work-dir/health-campaign-config/pdf-service/data-config/tradelicense-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/property-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/property-bill.json,file:///work-dir/health-campaign-config/pdf-service/data-config/tradelicense-bill.json,file:///work-dir/health-campaign-config/pdf-service/data-config/firenoc-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/pt-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/tl-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/consolidatedbill.json,file:///work-dir/health-campaign-config/pdf-service/data-config/consolidatedreceipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/tlapplication.json,file:///work-dir/health-campaign-config/pdf-service/data-config/passvehicle-certificate.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-consolidatedacknowlegment.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-consolidatedsewerageconnection.json,file:///work-dir/health-campaign-config/pdf-service/data-config/buildingpermit.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ptmutationcertificate.json,file:///work-dir/health-campaign-config/pdf-service/data-config/tlrenewalcertificate.json,file:///work-dir/health-campaign-config/pdf-service/data-config/bpa-revocation.json,file:///work-dir/health-campaign-config/pdf-service/data-config/buildingpermit-low.json,file:///work-dir/health-campaign-config/pdf-service/data-config/misc-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-applicationwater.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-sanctionletter.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-estimationnotice.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-applicationsewerage.json,file:///work-dir/health-campaign-config/pdf-service/data-config/tlcertificate.json,file:///work-dir/health-campaign-config/pdf-service/data-config/detailed-estimate.json,file:///work-dir/health-campaign-config/pdf-service/data-config/deviation-statement.json,file:///work-dir/health-campaign-config/pdf-service/data-config/measurement-book.json,file:///work-dir/health-campaign-config/pdf-service/data-config/fsm-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/pqm-adhoctest.json,file:///work-dir/health-campaign-config/works/pdf-service/data-config/analysis-statement.json,file:///work-dir/health-campaign-config/works/pdf-service/data-config/utilization-statement.json,file:///work-dir/health-campaign-config/health/pdf-service/data-config/health-bill-payment.json"
+  format-config-urls: "file:///work-dir/health-campaign-config/pdf-service/format-config/tradelicense-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/property-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/property-bill.json,file:///work-dir/health-campaign-config/pdf-service/format-config/tradelicense-bill.json,file:///work-dir/health-campaign-config/pdf-service/format-config/firenoc-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/pt-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/tl-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/consolidatedbill.json,file:///work-dir/health-campaign-config/pdf-service/format-config/consolidatedreceipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/tlapplication.json,file:///work-dir/health-campaign-config/pdf-service/format-config/passvehicle-certificate.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-consolidatedacknowlegment.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-consolidatedsewerageconnection.json,file:///work-dir/health-campaign-config/pdf-service/format-config/buildingpermit.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ptmutationcertificate.json,file:///work-dir/health-campaign-config/pdf-service/format-config/tlrenewalcertificate.json,file:///work-dir/health-campaign-config/pdf-service/format-config/bpa-revocation.json,file:///work-dir/health-campaign-config/pdf-service/format-config/buildingpermit-low.json,file:///work-dir/health-campaign-config/pdf-service/format-config/misc-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-applicationwater.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-sanctionletter.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-estimationnotice.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-applicationsewerage.json,file:///work-dir/health-campaign-config/pdf-service/format-config/tlcertificate.json,file:///work-dir/health-campaign-config/pdf-service/format-config/detailed-estimate.json,file:///work-dir/health-campaign-config/pdf-service/format-config/deviation-statement.json,file:///work-dir/health-campaign-config/pdf-service/format-config/measurement-book.json,file:///work-dir/health-campaign-config/pdf-service/format-config/fsm-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/pqm-adhoctest.json,file:///work-dir/health-campaign-config/works/pdf-service/format-config/analysis-statement.json,file:///work-dir/health-campaign-config/works/pdf-service/format-config/utilization-statement.json,file:///work-dir/health-campaign-config/health/pdf-service/format-config/health-bill-payment.json"
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -366,7 +391,6 @@ nginx-ingress:
     service:
       prometheusRule:
         enabled: true
-
 
 cert-manager:
   email: "devops@egovernments.org"     ### Add email-id which used by cert-manager for certificates validation.
@@ -490,6 +514,71 @@ project-factory:
   splitBoundariesOn: 'ADMIN_DISTRITO'
   replicas: 1
   namespace: 'egov'
+  maxDebugChar: '2000'
+  egov-mdms-service-host-key: 'mdms-service-v2'
+  mdmsV2SearchEndpoint: 'mdms-v2/v2/_search'
+  mdmsV1SearchEndpoint: 'mdms-v2/v1/_search'
+
+plan-service:
+  egov-mdms-service-host-key: 'mdms-service-v2'
+  egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
+  egov-mdms-service-v2-endpoint-key: "/mdms-v2/v2/_search"
+
+resource-generator:
+  egov-mdms-service-host-key: 'mdms-service-v2'
+  egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
+  egov-mdms-service-v2-endpoint-key: "/mdms-v2/v2/_search"
+
+
+attendance:
+  heap: "-Xmx256m -Xms256m"
+  memory_limits: 512Mi
+  egov-mdms-service-host-key: 'mdms-service-v2'
+  egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
+
+health-expense-calculator:
+  tracing-enabled: true
+  java-enable-debug: true
+  egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
+  report-header-title: "Health Campaign Payment Report"
+  is-attendance-approval-required: "true"
+  register-batch-size: 15
+  bill-generation-async-enabled: "true"
+  bill-generation-async-topic: "bill-generation-async-topic"
+  egov-musterroll-search-endpoint: "/health-muster-roll/v1/_search"
+
+expense:
+  tracing-enabled: true
+  java-enable-debug: true
+  business-workflow-status-map: "{'EXPENSE.WAGES':'false'}"
+  expense-billing-default-offset: 0
+  expense-billing-default-limit: 100
+  expense-billing-search-max-limit: 200
+  spring-kafka-producer-properties-max-request-size: "10485760"
+
+muster-roll:
+  tracing-enabled: true
+  java-enable-debug: true
+  musterroll-default-offset: 0
+  musterroll-default-limit: 100
+  musterroll-search-max-limit: 200
+  musterroll-workflow-business-service: "HCMMUSTERROLL"
+  attendance-log-search-endpoint: "health-attendance/log/v1/_search"
+  attendance-register-search-endpoint: "health-attendance/v1/_search"
+  attendance-register-update-endpoint: "health-attendance/v1/_update"
+  attendance-register-search-limit: 100
+  individual-search-endpoint: "individual/v1/_search"
+  expense-calculator-endpoint: "health-expense-calculator/v1/_estimate"
+  muster-restricted-search-roles: "PLACEHOLDER_ROLE"
+  notification-sms-enabled: "false"
+  musterroll-update-recompute-attendance-enabled: "false"
+  musterroll-individual-entry-roles-enabled: "false"
+  musterroll-validate-start-date-monday-enabled: "false"
+  musterroll-add-bank-account-details-enabled: "false"
+  musterroll-update-attendance-register-review-status-enabled: "true"
+  musterroll-workflow-enabled: "true"
+  musterroll-set-default-duration-enabled: "false"
+  musterroll-validate-attendance-register-enabled: "true"
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 kafka-config:
