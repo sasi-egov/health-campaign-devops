@@ -96,6 +96,7 @@ modules:
       - egovio/expense-db:v1.1.0-55e92c713-118
       - egovio/health-expense-calculator-db:v1.0.0-172f7e79e-55
       - payments-ui:console-c692a067dd-57
+      - pdf-service:indexer-bpa-fix-vinoth-88d0942e6a-42
   - name: m_hcmconsole
     dependencies:
       - "backbone"
