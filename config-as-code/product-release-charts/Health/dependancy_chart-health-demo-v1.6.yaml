@@ -4,11 +4,13 @@ modules:
   - name: backbone
     services:
       - kafka-kraft
-      - kafka-connect
-      - kafka-connect-restart-tasks
+      # - kafka-connect
+      # - kafka-connect-restart-tasks
       - elasticsearch-data
       - elasticsearch-master
       - kibana
+      - postgresql
+      - metallb
   - name: authn-authz
     services:
       - redis
