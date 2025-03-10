@@ -375,6 +375,7 @@ project-factory:
   logLevel: 'info'
   defaultLocale: 'en_MZ'
   splitBoundariesOn: 'ADMIN_DISTRITO'
+  validateCampaignIdInMetadata: 'true'
 
 zuul:
   replicas: 1
