@@ -30,7 +30,7 @@ healthChecks:
   readinessProbePath: "/census-service/health"
 appType: "java-spring"
 tracing-enabled: true
-memory_limits: 512Mi
+memory_limits: 768Mi
 heap: "-Xmx384m -Xms256m"
 java-args: "-Dspring.profiles.active=monitoring"
 
@@ -89,4 +89,4 @@ env: |
   - name: CENSUS_DEFAULT_LIMIT
     value: "50"
   - name: SPRING_KAFKA_PRODUCER_PROPERTIES_MAX_REQUEST_SIZE
-    value: {{ .Values.kafka-producer-max-request-size | default "4000000" }}
+    value: {{ index .Values "kafka-producer-max-request-size" | quote | default "4000000" }}
