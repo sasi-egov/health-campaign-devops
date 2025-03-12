@@ -278,11 +278,11 @@ sw-services:
   scid-format: "SW/[CITY.CODE]/[fy:yyyy-yy]/[SEQ_EGOV_COMMON]"
 
 audit-service:
-  persist-yml-path: "https://raw.githubusercontent.com/egovernments/configs/UNIFIED-DEV/works/egov-persister/attendance-service-persister.yml,https://raw.githubusercontent.com/egovernments/configs/UNIFIED-DEV/works/egov-persister/muster-service-persister.yml,https://raw.githubusercontent.com/egovernments/configs/UNIFIED-DEV/works/egov-persister/estimate-service.yml,https://raw.githubusercontent.com/egovernments/configs/UNIFIED-DEV/works/egov-persister/contract-service-persister.yml,https://raw.githubusercontent.com/egovernments/configs/UNIFIED-DEV/works/egov-persister/bankaccounts-persister.yml,https://raw.githubusercontent.com/egovernments/configs/UNIFIED-DEV/works/egov-persister/expense-bill-payment-persister.yaml,https://raw.githubusercontent.com/egovernments/configs/UNIFIED-DEV/egov-persister/mdms-persister.yml,https://raw.githubusercontent.com/egovernments/health-campaign-config/HCM-v1.7-DEMO/egov-persister/boundary-persister.yml"
+  persist-yml-path: "https://raw.githubusercontent.com/egovernments/health-campaign-config/HCM-v1.7-DEMO/egov-persister/mdms-persister.yml,https://raw.githubusercontent.com/egovernments/health-campaign-config/HCM-v1.7-DEMO/egov-persister/boundary-persister.yml,https://raw.githubusercontent.com/egovernments/health-campaign-config/HCM-v1.7-DEMO/egov-persister/project-factory-persister.yml"
   initContainers:
     gitSync:
-      repo: "git@github.com:egovernments/configs" 
-      branch: "UNIFIED-DEV"
+      repo: "git@github.com:egovernments/health-campaign-config"     ##### Change repo url with Your fork Repo url
+      branch: "HCM-v1.7-DEMO"  
 
 egov-pg-service:
   axis: true
