@@ -18,7 +18,7 @@ initContainers:
     enabled: true
     schemaTable: "muster_roll_schema"
     image:
-      repository: "muster-roll-db"
+      repository: "health-muster-roll-db"
 
 # Container Configs
 image:
