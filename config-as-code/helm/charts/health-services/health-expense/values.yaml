@@ -22,7 +22,7 @@ initContainers:
 
 # Container Configs
 image:
-  repository: "expense"
+  repository: "health-expense"
 replicas: "1"
 healthChecks:
   enabled: true

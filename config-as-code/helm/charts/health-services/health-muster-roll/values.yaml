@@ -22,7 +22,7 @@ initContainers:
 
 # Container Configs
 image:
-  repository: "muster-roll"
+  repository: "health-muster-roll"
 replicas: "1"
 healthChecks:
   enabled: true
