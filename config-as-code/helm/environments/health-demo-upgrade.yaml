@@ -376,6 +376,7 @@ project-factory:
   defaultLocale: 'en_MZ'
   splitBoundariesOn: 'ADMIN_DISTRITO'
   validateCampaignIdInMetadata: 'true'
+  notCreateUserIfAlreadyThere: 'true'
 
 zuul:
   replicas: 1
@@ -489,12 +490,6 @@ product:
   memory_limits: 512Mi
 
 
-project-factory:
-  logLevel: 'info'
-  defaultLocale: 'en_MZ'
-  splitBoundariesOn: 'CAMPAIGN_DISTRICT'
-  replicas: 1
-  namespace: 'egov'
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 kafka-config:
