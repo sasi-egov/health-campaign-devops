@@ -527,7 +527,7 @@ facility:
   memory_limits: 512Mi
 
 project:
-  replicas: 3
+  replicas: 1
   memory_limits: 1Gi
   heap: '-Xmx768m -Xms512m'
 
