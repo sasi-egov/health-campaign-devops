@@ -376,7 +376,7 @@ project-factory:
   defaultLocale: 'en_MZ'
   splitBoundariesOn: 'ADMIN_DISTRITO'
   validateCampaignIdInMetadata: 'true'
-  notCreateUserIfAlreadyThere: 'true'
+  notCreateUserIfAlreadyThere: 'false'
 
 zuul:
   replicas: 1
