@@ -37,16 +37,3 @@ output "db_instance_port" {
   value       = module.db.db_instance_port
 }
 
-output "zone" {
-  value = var.availability_zones
-}
-
-output "node_security_group_id" {
-  value = module.eks.node_security_group_id
-}
-
-
-output "eks_cluster_iam_role_name" {
-  value = module.eks.cluster_iam_role_name
-}
-
