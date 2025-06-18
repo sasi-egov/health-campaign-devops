@@ -16,7 +16,7 @@ variable "vpc_cidr_block" {
 
 variable "network_availability_zones" {
   description = "Configure availability zones configuration for VPC. Leave as default for India. Recommendation is to have subnets in at least two availability zones"
-  default = ["ap-south-1b", "ap-south-1a"] #REPLACE IF NEEDED
+  default = ["ap-south-1a", "ap-south-1b"] #REPLACE IF NEEDED
 }
 
 variable "availability_zones" {
@@ -26,18 +26,12 @@ variable "availability_zones" {
 
 variable "kubernetes_version" {
   description = "kubernetes version"
-  default = "1.30"
+  default = "1.31"
 }
 
 variable "instance_types" {
   description = "Arry of instance types for SPOT instances"
   default = ["r5ad.xlarge", "m5ad.xlarge"]
-  
-}
-
-variable "override_instance_types" {
-  description = "Arry of instance types for SPOT instances"
-  default = ["r5a.large", "r5ad.large", "r5d.large", "m4.xlarge"]
   
 }
 
@@ -56,11 +50,6 @@ variable "max_worker_nodes" {
   default = "5" #REPLACE IF NEEDED
 }
 
-variable "ssh_key_name" {
-  description = "ssh key name, not required if your using spot instance types"
-  default = <ssh_key_name> #REPLACE
-}
-
 
 variable "db_name" {
   description = "RDS DB name. Make sure there are no hyphens or other special characters in the DB name. Else, DB creation will fail"
@@ -75,17 +64,12 @@ variable "db_username" {
 #DO NOT fill in here. This will be asked at runtime
 variable "db_password" {}
 
-variable "public_key" {
-  default = <public_ssh_key>
-  description = "ssh key"
-}
 variable "enable_karpenter" {
   description = "Enable the karpenter."
   type        = bool
   default     = false
 }
 
-## change ssh key_name eg. digit-quickstart_your-name
 
 
 
