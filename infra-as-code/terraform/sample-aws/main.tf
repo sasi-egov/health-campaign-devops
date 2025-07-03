@@ -113,7 +113,8 @@ module "eks_managed_node_group" {
   }
   min_size     = var.min_worker_nodes
   max_size     = var.max_worker_nodes
-  desired_size = var.desired_worker_nodes 
+  desired_size = var.desired_worker_nodes
+  user_data_template_path = "user-data.yaml"
   instance_types = var.instance_types
   capacity_type  = "SPOT"
   ebs_optimized  = "true"
@@ -194,14 +195,6 @@ resource "kubernetes_storage_class" "ebs_csi_encrypted_gp3_storage_class" {
     fsType    = "ext4"
     encrypted = true
     type      = "gp3"
-  }
-}
-
-provider "helm" {
-  kubernetes = {
-    host                   = data.aws_eks_cluster.cluster.endpoint
-    cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-    token                  = data.aws_eks_cluster_auth.cluster.token
   }
 }
 
