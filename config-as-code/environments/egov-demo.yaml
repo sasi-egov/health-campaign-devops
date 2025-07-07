@@ -177,6 +177,36 @@ egov-idgen:
   memory_limits: 512Mi
   autocreate-new-seq: "true"
 
+pgr-services:
+  central-instance-build: true
+  central-instance-name: health
+  central-instance-enabled: false
+
+household:
+  central-instance-name: health
+  central-instance-build: true
+  central-instance-enabled: false
+
+
+service-request:
+  central-instance-name: health
+  central-instance-build: true
+  central-instance-enabled: false
+
+referralmanagement:
+  central-instance-build: true
+  central-instance-name: health
+  central-instance-enabled: false
+  memory_limits: 768Mi
+  heap: "-Xmx384m -Xms384m"
+  egov-mdms-service-host-key: 'mdms-service-v2'
+  egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
+
+stock:
+  central-instance-name: health
+  central-instance-build: true
+  central-instance-enabled: false  
+
 egov-notification-sms:
   sms-provider-url: "sms provider url" ## Add sms provider url
   sms.provider.class: "Generic"
@@ -464,6 +494,9 @@ egov-workflow-v2:
   pdf-link: "/download/epass?tenantId={TENANTID}&ids={UUID}"
 
 egov-hrms:
+  central-instance-name: health
+  central-instance-build: true
+  central-instance-enabled: false
   java-args: -Dspring.profiles.active=monitoring
   replicas : 1
   heap: '-Xmx512m -Xms256m'
@@ -489,16 +522,25 @@ egov-accesscontrol:
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Health Services
 
 facility:
+  central-instance-build: true
+  central-instance-name: health
+  central-instance-enabled: false
   replicas: 1
   heap: '-Xmx512m -Xms256m'
   memory_limits: 512Mi
 
 project:
+  central-instance-name: health
+  central-instance-build: true
+  central-instance-enabled: false
   replicas: 1
   memory_limits: 768Mi
   heap: '-Xmx768m -Xms512m'
 
 individual:
+  central-instance-name: health
+  central-instance-build: true
+  central-instance-enabled: false
   replicas: 1
   heap: '-Xmx512m -Xms256m'
   memory_limits: 512Mi
@@ -508,6 +550,9 @@ individual:
   egov-beneficiary-idgen-idpool-update-path: "beneficiary-idgen/id/id_pool/_update"
 
 product:
+  central-instance-name: health
+  central-instance-build: true
+  central-instance-enabled: false
   heap: "-Xmx512m -Xms256m"
   replicas: 1
   memory_limits: 512Mi
@@ -589,6 +634,9 @@ resource-generator:
 
 
 attendance:
+  central-instance-name: health
+  central-instance-build: true
+  central-instance-enabled: false
   heap: "-Xmx256m -Xms256m"
   memory_limits: 512Mi
   egov-mdms-service-host-key: 'mdms-service-v2'
@@ -606,6 +654,9 @@ health-expense-calculator:
   egov-musterroll-search-endpoint: "/health-muster-roll/v1/_search"
 
 expense:
+  central-instance-name: health
+  central-instance-build: true
+  central-instance-enabled: false
   tracing-enabled: true
   java-enable-debug: true
   business-workflow-status-map: "{'EXPENSE.WAGES':'false'}"
@@ -615,6 +666,9 @@ expense:
   spring-kafka-producer-properties-max-request-size: "10485760"
 
 muster-roll:
+  central-instance-name: health
+  central-instance-build: true
+  central-instance-enabled: false
   tracing-enabled: true
   java-enable-debug: true
   musterroll-default-offset: 0
