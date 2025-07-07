@@ -162,23 +162,23 @@ resources: |
 ## Allows specification of additional environment variables
 extraEnv:
   java: |
-    - name: SPRING_DATASOURCE_URL
-    {{- if eq .Values.namespace "health" }}
-      valueFrom:
-        configMapKeyRef:
-          name: egov-config
-          key: health-db-url
-    {{- else if eq .Values.namespace "ifix" }}
-      valueFrom:
-        configMapKeyRef:
-          name: egov-config
-          key: ifix-db-url            
-    {{- else }}
-      valueFrom:
-        configMapKeyRef:
-          name: egov-config
-          key: db-url
-    {{- end }}
+      - name: SPRING_DATASOURCE_URL
+      {{- if eq .Values.namespace "health" }}
+        valueFrom:
+          configMapKeyRef:
+            name: egov-config
+            key: health-db-url
+      {{- else if eq .Values.namespace "ifix" }}
+        valueFrom:
+          configMapKeyRef:
+            name: egov-config
+            key: ifix-db-url            
+      {{- else }}
+        valueFrom:
+          configMapKeyRef:
+            name: egov-config
+            key: db-url
+      {{- end }}
       - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
         value: "org.postgresql.Driver"
       - name: FLYWAY_ENABLED
