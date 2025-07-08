@@ -16,7 +16,8 @@ cluster-configs:
                 db-host: <db_host_name> ## Add db-host name eg: egov-demo.database.azure.com
                 db-name: <db_name> ## Add db-name
                 db-url: "jdbc:postgresql://<db_host_name>/<db_name>" ## example: jdbc:postgresql://egov-demo.postgres.database.azure.com:5432/egov_demo
-                domain: <domain_name> ## Add your Domain Name    
+                db-url-no-schema: "jdbc:postgresql://<db_host_name>/<db_name>" ## example: jdbc:postgresql://egov-demo.postgres.database.azure.com:5432/egov_demo
+                domain: <domain_name> ## Add your Domain Name
                 egov-services-fqdn-name: https://<domain_name>/ ## Add your Domain Name
                 egov-state-level-tenant-id: "mz"
                 s3-assets-bucket: "(pg-health-egov-assets|egov-health-playground-assets)"
@@ -179,23 +180,23 @@ egov-idgen:
 
 pgr-services:
   central-instance-build: true
-  central-instance-name: health
+  central-instance-name: egov
   central-instance-enabled: false
 
 household:
-  central-instance-name: health
+  central-instance-name: egov
   central-instance-build: true
   central-instance-enabled: false
 
 
 service-request:
-  central-instance-name: health
+  central-instance-name: egov
   central-instance-build: true
   central-instance-enabled: false
 
 referralmanagement:
   central-instance-build: true
-  central-instance-name: health
+  central-instance-name: egov
   central-instance-enabled: false
   memory_limits: 768Mi
   heap: "-Xmx384m -Xms384m"
@@ -203,9 +204,16 @@ referralmanagement:
   egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
 
 stock:
-  central-instance-name: health
+  central-instance-name: egov
   central-instance-build: true
-  central-instance-enabled: false  
+  central-instance-enabled: false 
+
+egov-otp:
+  central-instance-name: egov
+  central-instance-build: true
+  central-instance-enabled: false
+  memory_limits: "512Mi"
+  heap: "-Xmx256m -Xms256m"   
 
 egov-notification-sms:
   sms-provider-url: "sms provider url" ## Add sms provider url
@@ -225,6 +233,9 @@ egov-notification-sms:
   sms-error-codes: "401,403,404,405,406,407,408,409,410,411,412,413,414"
 
 egov-user:
+  central-instance-name: egov
+  central-instance-build: true
+  central-instance-enabled: false
   replicas: 1
   heap: "-Xmx512m -Xms256m"
   memory_limits: 512Mi
@@ -295,6 +306,9 @@ egov-pg-service:
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 egov-mdms-service:
+  central-instance-name: egov
+  central-instance-build: true
+  central-instance-enabled: false
   replicas: 1
   heap: "-Xmx512m -Xms512m"
   images:
@@ -486,6 +500,9 @@ tl-services:
 
 
 egov-workflow-v2:
+  central-instance-name: egov
+  central-instance-build: true
+  central-instance-enabled: false
   logging-level: "DEBUG"
   java-args: -Dspring.profiles.active=monitoring
   heap: "-Xmx192m -Xms192m"
@@ -494,7 +511,7 @@ egov-workflow-v2:
   pdf-link: "/download/epass?tenantId={TENANTID}&ids={UUID}"
 
 egov-hrms:
-  central-instance-name: health
+  central-instance-name: egov
   central-instance-build: true
   central-instance-enabled: false
   java-args: -Dspring.profiles.active=monitoring
@@ -511,6 +528,9 @@ egov-weekly-impact-notifier:
   schedule: "30 07 * * *"
 
 egov-enc-service:
+  central-instance-name: egov
+  central-instance-build: true
+  central-instance-enabled: false
   replicas: 1
   heap: '-Xmx512m -Xms256m'
   memory_limits: 512Mi
@@ -523,14 +543,14 @@ egov-accesscontrol:
 
 facility:
   central-instance-build: true
-  central-instance-name: health
+  central-instance-name: egov
   central-instance-enabled: false
   replicas: 1
   heap: '-Xmx512m -Xms256m'
   memory_limits: 512Mi
 
 project:
-  central-instance-name: health
+  central-instance-name: egov
   central-instance-build: true
   central-instance-enabled: false
   replicas: 1
@@ -538,7 +558,7 @@ project:
   heap: '-Xmx768m -Xms512m'
 
 individual:
-  central-instance-name: health
+  central-instance-name: egov
   central-instance-build: true
   central-instance-enabled: false
   replicas: 1
@@ -550,7 +570,7 @@ individual:
   egov-beneficiary-idgen-idpool-update-path: "beneficiary-idgen/id/id_pool/_update"
 
 product:
-  central-instance-name: health
+  central-instance-name: egov
   central-instance-build: true
   central-instance-enabled: false
   heap: "-Xmx512m -Xms256m"
@@ -634,7 +654,7 @@ resource-generator:
 
 
 attendance:
-  central-instance-name: health
+  central-instance-name: egov
   central-instance-build: true
   central-instance-enabled: false
   heap: "-Xmx256m -Xms256m"
@@ -654,7 +674,7 @@ health-expense-calculator:
   egov-musterroll-search-endpoint: "/health-muster-roll/v1/_search"
 
 expense:
-  central-instance-name: health
+  central-instance-name: egov
   central-instance-build: true
   central-instance-enabled: false
   tracing-enabled: true
@@ -666,7 +686,7 @@ expense:
   spring-kafka-producer-properties-max-request-size: "10485760"
 
 muster-roll:
-  central-instance-name: health
+  central-instance-name: egov
   central-instance-build: true
   central-instance-enabled: false
   tracing-enabled: true
