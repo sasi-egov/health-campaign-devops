@@ -12,7 +12,7 @@ appType: ""
 
 central-instance-build: false
 central-instance-enabled: false
-central-instance-name: health
+central-instance-name: egov
 db-schema-names: "public"
 cpu_limits: 300m
 cpu_requests: 100m
@@ -47,26 +47,11 @@ initContainers:
       tag: latest
     env: |
         - name: "DB_URL"
-        {{- if and (index .Values "central-instance-build") (eq (index .Values "central-instance-name") "health") }}
-          valueFrom:
-            configMapKeyRef:
-              name: egov-config
-              key: health-db-url-no-schema
-        {{- else if and (index .Values "central-instance-build") (eq (index .Values "central-instance-name") "egov") }}
+        {{- if and (index .Values "central-instance-build") (eq (index .Values "central-instance-name") "egov") }}
           valueFrom:
             configMapKeyRef:
               name: egov-config
               key: db-url-no-schema
-        {{- else if eq .Values.namespace "health" }}
-          valueFrom:
-            configMapKeyRef:
-              name: egov-config
-              key: health-db-url
-        {{- else if eq .Values.namespace "ifix" }}
-          valueFrom:
-            configMapKeyRef:
-              name: egov-config
-              key: ifix-db-url
         {{- else }}      
           valueFrom:
             configMapKeyRef:
@@ -76,11 +61,6 @@ initContainers:
         - name: "SCHEMA_NAME"
         {{- if and (index .Values "central-instance-build") (index .Values "central-instance-enabled") }}
           value: {{ index .Values "db-schema-names" | quote }}
-        {{- else if and (index .Values "central-instance-build") (eq (index .Values "central-instance-name") "health") }}
-          valueFrom:
-            configMapKeyRef:
-              name: egov-config
-              key: health-schemas
         {{- else }}   
           value: "public"
         {{- end }}
