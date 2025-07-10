@@ -16,7 +16,6 @@ modules:
       - "authn-authz"
     services:
       - egovio/egov-accesscontrol:DIGIT-2.9-LTS-237578ce80-10
-      - egovio/egov-enc-service-db:DIGIT-2.9-LTS-237578ce80-21
       - egovio/egov-idgen-db:DIGIT-2.9-LTS-07f47790b8-8
       - egovio/egov-filestore-db:DIGIT-2.9-LTS-237578ce80-14
       - egovio/egov-persister:DIGIT-2.9-LTS-07f47790b8-8
@@ -25,7 +24,6 @@ modules:
       - egovio/error-handler:master-impel-dump-5022b7acff-1
       - egovio/playground:2.0
       - egovio/mdms-v2:MDMS-v2-2.9LTS-837232ac67-71
-      - egovio/boundary-service-db:v1.0.0-063968adc7-18
   - name: business
     dependencies:
       - "core"
