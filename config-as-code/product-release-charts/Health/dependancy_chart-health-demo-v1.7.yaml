@@ -42,7 +42,7 @@ modules:
       - "core"
       - "business"
     services:
-      - egovio/individual-db:v1.1.6-1f79b92f65-26
-      - egovio/household-db:v1.1.5-1f79b92f65-40
+      - egovio/household-db:No-boundary-validation-701ef5bce9-75
+      - egovio/health-individual-db:No-boundary-validation-ff545046fb-99
 
 
