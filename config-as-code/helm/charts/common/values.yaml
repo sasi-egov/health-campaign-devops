@@ -9,6 +9,14 @@ replicas: 1
 httpPort: 8080
 appType: ""
 
+
+central-instance-build: false
+central-instance-enabled: false
+central-instance-name: egov
+db-schema-names: "public"
+cpu_limits: 300m
+cpu_requests: 100m
+
 ingress:
   enabled: false
   zuul: false
@@ -39,10 +47,23 @@ initContainers:
       tag: latest
     env: |
         - name: "DB_URL"
-          valueFrom: 
-            configMapKeyRef: 
+        {{- if and (index .Values "central-instance-build") (eq (index .Values "central-instance-name") "egov") }}
+          valueFrom:
+            configMapKeyRef:
+              name: egov-config
+              key: db-url-no-schema
+        {{- else }}      
+          valueFrom:
+            configMapKeyRef:
               name: egov-config
               key: db-url
+        {{- end }}
+        - name: "SCHEMA_NAME"
+        {{- if and (index .Values "central-instance-build") (index .Values "central-instance-enabled") }}
+          value: {{ index .Values "db-schema-names" | quote }}
+        {{- else }}   
+          value: "public"
+        {{- end }}
         - name: "SCHEMA_TABLE"
           value: {{ .Values.initContainers.dbMigration.schemaTable | quote }}              
         - name: "FLYWAY_USER"
@@ -122,26 +143,54 @@ resources: |
 extraEnv:
   java: |
       - name: SPRING_DATASOURCE_URL
+      {{- if eq .Values.namespace "health" }}
+        valueFrom:
+          configMapKeyRef:
+            name: egov-config
+            key: health-db-url
+      {{- else if eq .Values.namespace "ifix" }}
+        valueFrom:
+          configMapKeyRef:
+            name: egov-config
+            key: ifix-db-url            
+      {{- else }}
         valueFrom:
           configMapKeyRef:
             name: egov-config
             key: db-url
+      {{- end }}
+      - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+        value: "org.postgresql.Driver"
       - name: FLYWAY_ENABLED
         value: "false"      
       - name: SPRING_FLYWAY_ENABLED
         value: "false"      
       - name: MANAGEMENT_ENDPOINTS_WEB_BASE_PATH
         value: "/"
+      - name: JAVA_ENABLE_DEBUG
+        value: "TRUE"   
       - name: APP_TIMEZONE
         valueFrom:
           configMapKeyRef:
             name: egov-config
             key: timezone              
       - name: FLYWAY_URL
+      {{- if eq .Values.namespace "health" }}  
+        valueFrom:
+          configMapKeyRef:
+            name: egov-config
+            key: health-db-url
+      {{- else if eq .Values.namespace "ifix" }}
+        valueFrom:
+          configMapKeyRef:
+            name: egov-config
+            key: ifix-db-url 
+      {{- else }}
         valueFrom:
           configMapKeyRef:
             name: egov-config
             key: db-url
+      {{- end }}
       - name: SPRING_DATASOURCE_USERNAME
         valueFrom:
           secretKeyRef:
