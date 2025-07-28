@@ -120,7 +120,10 @@ env: |
         key: pdf-service
   {{- if index .Values "state-level-tenant-id" }}
   - name: STATE_LEVEL_TENANT_ID
-    value: {{ index .Values "state-level-tenant-id" | quote }} 
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: egov-state-level-tenant-id
   {{- end }}
   {{- if index .Values "payment-pdf-key" }}
   - name: PAYMENT_PDF_KEY

@@ -9,24 +9,30 @@ replicas: 1
 httpPort: 8080
 appType: ""
 
+central-instance-name: health
+central-instance-build: false
+central-instance-enabled: false
+db-schema-names: "public"
+
+
 ingress:
   enabled: false
   zuul: false
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/use-regex: "true" 
+    nginx.ingress.kubernetes.io/use-regex: "true"
    # nginx.ingress.kubernetes.io/limit-rpm: "300"
-  waf: 
+  waf:
     enabled: true
     annotations:
-      nginx.ingress.kubernetes.io/lua-resty-waf: "active"  
+      nginx.ingress.kubernetes.io/lua-resty-waf: "active"
       nginx.ingress.kubernetes.io/lua-resty-waf-debug: "true"
       nginx.ingress.kubernetes.io/lua-resty-waf-score-threshold: "10"
       nginx.ingress.kubernetes.io/lua-resty-waf-allow-unknown-content-types: "true"
-      nginx.ingress.kubernetes.io/lua-resty-waf-process-multipart-body: "false"              
+      nginx.ingress.kubernetes.io/lua-resty-waf-process-multipart-body: "false"
 
 image:
-  pullPolicy: IfNotPresent   
+  pullPolicy: IfNotPresent
 
 affinity:
     preferSpreadAcrossAZ: true
@@ -35,14 +41,14 @@ initContainers:
   dbMigration:
     enabled: false
     image:
-      pullPolicy: IfNotPresent  
+      pullPolicy: IfNotPresent
       tag: latest
     env: |
-        - name: "DB_URL"
+        - name: "DB_URL"  
           valueFrom: 
             configMapKeyRef: 
               name: egov-config
-              key: db-url
+              key: db-url-no-schema
         - name: "SCHEMA_TABLE"
           value: {{ .Values.initContainers.dbMigration.schemaTable | quote }}              
         - name: "FLYWAY_USER"
@@ -66,7 +72,7 @@ initContainers:
     image:
       repository: k8s.gcr.io/git-sync
       tag: v3.1.1
-      pullPolicy: IfNotPresent   
+      pullPolicy: IfNotPresent
     env: |
         - name: "GIT_SYNC_REPO"
           value: "{{ .Values.initContainers.gitSync.repo }}"
@@ -126,6 +132,8 @@ extraEnv:
           configMapKeyRef:
             name: egov-config
             key: db-url
+      - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+        value: "org.postgresql.Driver"
       - name: FLYWAY_ENABLED
         value: "false"      
       - name: SPRING_FLYWAY_ENABLED
@@ -216,7 +224,7 @@ extraEnv:
         value: "0"
             
             
-            
+
   jaeger: |             
       - name: JAEGER_SERVICE_NAME
         value: {{ template "common.name" . }}
@@ -231,7 +239,7 @@ extraEnv:
       - name: JAEGER_SAMPLER_MANAGER_HOST_PORT
         value: "$(JAEGER_AGENT_HOST):5778"
       - name: TRACER_OPENTRACING_ENABLED
-        value: "true"         
+        value: "true"
 ## Additional init containers
 extraInitContainers: |
 
@@ -253,14 +261,14 @@ securityContext: {}
   #   - ALL
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
-  # runAsUser: 1000            
+  # runAsUser: 1000
 
 service:
   additionalAnnotations: {}
 
 serviceMonitor:
   honorLabels: true
-  # interval: 2m  
+  # interval: 2m
 
 cron:
   namespace: egov
@@ -277,5 +285,5 @@ cron:
   extraVolumeMounts: |
 
 vpa:
-  enabled: false  
+  enabled: false
   updateMode: "Off"
