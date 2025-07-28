@@ -687,6 +687,8 @@ project-factory:
   egov-mdms-service-host-key: 'mdms-service-v2'
   mdmsV2SearchEndpoint: 'mdms-v2/v2/_search'
   mdmsV1SearchEndpoint: 'mdms-v2/v1/_search'
+  mdmsV2CreateEndpoint: 'mdms-v2/v2/_create'
+  mdmsV2UpdateEndpoint: 'mdms-v2/v2/_update'
   validateCampaignIdInMetadata: 'false'
   notCreateUserIfAlreadyThere: 'false'
 
