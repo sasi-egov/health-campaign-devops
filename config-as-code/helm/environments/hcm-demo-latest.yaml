@@ -390,7 +390,7 @@ egov-persister:
   initContainers:
     gitSync:
       repo: "git@github.com:egovernments/health-campaign-config"      ##### Change repo url with Your fork Repo url
-      branch: "HCM-v1.7-DEMO"                                    ##### Change repo branch with Your fork Repo branch
+      branch: "HCM-v1.8-DEMO"                                    ##### Change repo branch with Your fork Repo branch
 
 egov-data-uploader:
   initContainers:
