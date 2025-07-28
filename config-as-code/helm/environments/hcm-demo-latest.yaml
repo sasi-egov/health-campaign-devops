@@ -102,7 +102,6 @@ cluster-configs:
               project: "http://project:8080/"
               product: "http://product:8080/"
               household: "http://household:8080/"
-              health-service-request: 'http://health-service-request.health:8080/'
               individual: "http://individual:8080/"
               stock: "http://stock:8080/"
               facility: "http://facility:8080/"
@@ -262,7 +261,7 @@ household:
   central-instance-build: true
   central-instance-enabled: false
 
-health-service-request:
+service-request:
   central-instance-name: health
   central-instance-build: true
   central-instance-enabled: false
