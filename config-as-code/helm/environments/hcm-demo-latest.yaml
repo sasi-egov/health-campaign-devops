@@ -586,9 +586,7 @@ mdms-v2:
   contextPath: "/mdms-v2"
   ingress:
     context: "mdms-v2"
-  healthChecks:
-    livenessProbePath: "/mdms-v2/health"
-    readinessProbePath: "/mdms-v2/health"
+
 
 egov-otp:
   central-instance-name: egov
