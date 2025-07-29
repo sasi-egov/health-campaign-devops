@@ -287,6 +287,7 @@ egov-user:
   central-instance-name: egov
   central-instance-build: true
   central-instance-enabled: false
+  db-schema-names: "kano,kebbi"
   replicas: 3
   heap: "-Xmx512m -Xms256m"
   memory_limits: 512Mi
