@@ -691,6 +691,9 @@ stock:
 
 
 project-factory:
+  central-instance-name: health
+  central-instance-build: true
+  central-instance-enabled: false
   logLevel: 'debug'
   defaultLocale: 'en_MZ'
   splitBoundariesOn: 'CAMPAIGN_DISTRICT'
