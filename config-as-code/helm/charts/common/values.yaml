@@ -49,6 +49,12 @@ initContainers:
             configMapKeyRef: 
               name: egov-config
               key: db-url-no-schema
+        - name: "SCHEMA_NAME"
+          {{- if and (index .Values "central-instance-build") (index .Values "central-instance-enabled") }}
+          value: "{{ index .Values "db-schema-names" }}"
+          {{- else }}
+          value: "public"
+          {{- end }}
         - name: "SCHEMA_TABLE"
           value: {{ .Values.initContainers.dbMigration.schemaTable | quote }}              
         - name: "FLYWAY_USER"
