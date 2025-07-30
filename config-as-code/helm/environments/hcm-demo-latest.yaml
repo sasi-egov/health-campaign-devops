@@ -260,6 +260,8 @@ household:
   central-instance-name: health
   central-instance-build: true
   central-instance-enabled: false
+  egov-mdms-service-host-key: 'mdms-service-v2'
+  egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
 
 service-request:
   central-instance-name: health
