@@ -4,7 +4,7 @@
 cluster_name: "testhealth4"
 
 # Name you want to give to your Database
-# DB name must contain only alphanumeric characters
+# DB name must contain only alphanumeric  characters
 db_name: "testhealthdb4"
 
 # Replace with DB username you want
